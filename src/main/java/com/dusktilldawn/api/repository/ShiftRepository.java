@@ -6,9 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ShiftRepository extends JpaRepository<Shift, Long> {
     
     List<Shift> findByStartTimeAfter(LocalDateTime time);
+
+    Optional<Shift> findTopByOrderByBusinessDateDesc();
 }

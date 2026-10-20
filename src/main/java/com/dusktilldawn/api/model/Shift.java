@@ -1,5 +1,6 @@
 package com.dusktilldawn.api.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,10 @@ public class Shift {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "start_time")
+    @Column(name = "business_date", nullable = false)
+    private LocalDate businessDate;
+
+    @Column(name = "start_time", unique = true)
     private LocalDateTime startTime;
 
     @Column(name = "end_time")
@@ -28,4 +32,14 @@ public class Shift {
 
     @OneToMany(mappedBy = "shift", cascade = CascadeType.ALL)
     private List<Reservation> reservations = new ArrayList<>();
+
+    public Shift(
+            LocalDate businessDate,
+            LocalDateTime startTime,
+            LocalDateTime endTime
+    ) {
+        this.businessDate = businessDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 }
